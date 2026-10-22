@@ -48,7 +48,7 @@ Quase todas as entregas deste desafio automatizaram a triagem: ler o ticket e ma
 | **Economia** | 1.932 a 5.094 horas por ano (R$ 48 mil a R$ 229 mil), com cada premissa declarada |
 | **Divisão do trabalho** | Nos 110 tickets de teste: a IA resolve 48%, prepara o resumo de 33%, e 16% vão pra pessoa na hora |
 | **Motor nos 80 tickets que escreveram as regras** | 80 de 80. Não prova nada |
-| **Motor v1 nos 30 tickets novos (teste cego)** | **16 de 30, 7 erros perigosos.** Na dúvida, ele respondia sozinho |
+| **Motor v1 nos 30 tickets novos (teste cego)** | **16 de 30, 7 erros perigosos.** Na dúvida, ele respondia sozinho ([resultado guardado](solution/teste/resultado_motor_novos_v1.csv)) |
 | **Motor v2 nos mesmos 30 (já não é cego)** | **21 de 30, 1 erro perigoso.** Agora, na dúvida, vai pra pessoa |
 | **Trava** | 24 de 24 frases certas |
 
@@ -80,6 +80,7 @@ Precisa só de Python 3.9 ou mais novo. **O motor, a tela, a trava e a conta nã
 cd submissions/vinicius-alves
 
 python3 solution/motor/motor.py              # roda nos 80 tickets, mede e gera a tela
+python3 solution/motor/motor.py --novos      # roda nos 30 tickets novos (21 de 30, 1 perigoso)
 python3 solution/motor/testar_trava.py       # testa a trava com 24 frases
 python3 solution/diagnostico/conta.py        # a conta do desperdício
 

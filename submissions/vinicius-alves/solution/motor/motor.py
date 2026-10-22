@@ -3,6 +3,7 @@
 Uso (da pasta submissions/vinicius-alves):
     python3 solution/motor/motor.py              roda nos 80 tickets, mede contra o gabarito e gera a tela
     python3 solution/motor/motor.py --sem-tela   só mede
+    python3 solution/motor/motor.py --novos      roda nos 30 tickets novos (teste cego) e mede contra a referência
 
 Sem dependências além do Python. Sem chave de API.
 """
@@ -23,6 +24,10 @@ SOLUCAO = AQUI.parent
 CASOS = SOLUCAO / "teste/casos_teste.csv"
 GABARITO = SOLUCAO / "teste/gabarito_preenchido.csv"
 SAIDA = SOLUCAO / "teste/resultado_motor.csv"
+# Teste cego: 30 tickets escritos depois das regras. O resultado da versão 1 fica em resultado_motor_novos_v1.csv.
+CASOS_NOVOS = SOLUCAO / "teste/casos_novos.csv"
+REFERENCIA_NOVOS = SOLUCAO / "teste/referencia_novos.csv"
+SAIDA_NOVOS = SOLUCAO / "teste/resultado_motor_novos.csv"
 TELA = SOLUCAO / "interface/dados.js"
 
 # Nomes fictícios, fixos e sem repetir. O Dataset 1 tem nomes inventados em inglês.
@@ -71,9 +76,9 @@ def tipo_de_erro(certo, motor):
     return "outro"
 
 
-def main(gerar_tela=True):
-    casos = carregar(CASOS)
-    gabarito = {g["id"]: g["acao"] for g in carregar(GABARITO)}
+def main(gerar_tela=True, casos=CASOS, gabarito=GABARITO, saida=SAIDA):
+    casos = carregar(casos)
+    gabarito = {g["id"]: g["acao"] for g in carregar(gabarito)}
     linhas, problemas_trava = [], []
 
     for i, t in enumerate(casos):
@@ -109,12 +114,12 @@ def main(gerar_tela=True):
     for g in "ABCDE":
         print(f"  {g}  " + "  ".join(f"{sum(1 for l in linhas if l['gabarito'] == g and l['motor'] == m):>1}" for m in "ABCDE"))
 
-    with open(SAIDA, "w", newline="", encoding="utf-8-sig") as f:
+    with open(saida, "w", newline="", encoding="utf-8-sig") as f:
         campos = ["id", "gabarito", "motor", "erro", "regra", "processo", "porque", "sinais", "rascunho"]
         w = csv.DictWriter(f, fieldnames=campos, extrasaction="ignore")
         w.writeheader()
         w.writerows(linhas)
-    print(f"\nResultado por ticket em {SAIDA.relative_to(SOLUCAO.parent)}")
+    print(f"\nResultado por ticket em {saida.relative_to(SOLUCAO.parent)}")
 
     if gerar_tela:
         exporta_tela(linhas)
@@ -156,4 +161,7 @@ def exporta_tela(linhas):
 
 
 if __name__ == "__main__":
-    main(gerar_tela="--sem-tela" not in sys.argv)
+    if "--novos" in sys.argv:
+        main(gerar_tela=False, casos=CASOS_NOVOS, gabarito=REFERENCIA_NOVOS, saida=SAIDA_NOVOS)
+    else:
+        main(gerar_tela="--sem-tela" not in sys.argv)

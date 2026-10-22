@@ -61,7 +61,7 @@ def main():
         horas, reais, pessoas = conta(p, m)
         print(f"{nome:<12}{horas:>12,.0f}{reais:>14,.0f}{pessoas:>10.1f}".replace(",", "."))
     print("\nFórmula: volume x [%IA x (tempo humano - revisão) + %resumo x triagem poupada] / 60")
-    print("Antes de liberar: medir em modo sombra até erro perigoso ficar perto de zero (hoje: 7 em 30 tickets novos).")
+    print("Antes de liberar: medir em modo sombra até erro perigoso ficar perto de zero (nos 30 tickets novos: 7 na versão 1, 1 na versão 2).")
 
 
 if __name__ == "__main__":
