@@ -459,7 +459,7 @@ window.TICKETS = [
   "msg": "Como faço pra conectar os AirPods no meu celular? É um Samsung. Não estou achando.",
   "regra": "R4 Informação",
   "processo": "PR-22 Dúvida de produto",
-  "porque": "Dúvida de uso. Responde só com o que está na ficha.",
+  "porque": "Dúvida de uso. Responde só com o que está na ficha, e diz quando não sabe.",
   "resumo": [
    "Apple AirPods. R$ 1.899,00",
    "3 dias desde a compra · Entregue",
@@ -484,7 +484,7 @@ window.TICKETS = [
   "msg": "A versão 2.3 do firmware corrige o problema da câmera desconectar do Wi-Fi no meio da gravação? Ou é melhor esperar a próxima?",
   "regra": "R4 Informação",
   "processo": "PR-22 Dúvida de produto",
-  "porque": "Dúvida de uso. Responde só com o que está na ficha.",
+  "porque": "Dúvida de uso. Responde só com o que está na ficha, e diz quando não sabe.",
   "resumo": [
    "GoPro Action Camera. R$ 2.299,00",
    "60 dias desde a compra · Entregue",
@@ -1326,8 +1326,8 @@ window.TICKETS = [
   "contatos": "Primeiro",
   "msg": "Não recebi a nota fiscal da compra do notebook. Preciso pra declarar no trabalho.",
   "regra": "R4 Informação",
-  "processo": "PR-13 a PR-16 Cobrança",
-  "porque": "Dúvida de cobrança com regra escrita.",
+  "processo": "PR-14 Nota fiscal",
+  "porque": "Mostra onde baixar a nota.",
   "resumo": [
    "HP Pavilion. R$ 3.299,00",
    "10 dias desde a compra · Entregue",
@@ -1352,7 +1352,7 @@ window.TICKETS = [
   "msg": "Paguei o boleto faz 5 dias e o pedido continua como aguardando pagamento. Vai ser cancelado?",
   "regra": "R4 Informação",
   "processo": "PR-13 a PR-16 Cobrança",
-  "porque": "Dúvida de cobrança com regra escrita.",
+  "porque": "Dúvida de pagamento com regra escrita.",
   "resumo": [
    "Philips Hue Lights. R$ 699,00",
    "5 dias desde a compra · Aguardando pagamento",
@@ -1457,7 +1457,7 @@ window.TICKETS = [
   "msg": "Comprei com 10% de cashback e até agora não caiu. Quando cai o cashback?",
   "regra": "R4 Informação",
   "processo": "PR-13 a PR-16 Cobrança",
-  "porque": "Dúvida de cobrança com regra escrita.",
+  "porque": "Dúvida de pagamento com regra escrita.",
   "resumo": [
    "Samsung Soundbar. R$ 1.999,00",
    "30 dias desde a compra · Entregue",
@@ -1532,7 +1532,7 @@ window.TICKETS = [
   "msg": "Quero trocar o cartão das parcelas que faltam. O meu foi bloqueado.",
   "regra": "R4 Informação",
   "processo": "PR-13 a PR-16 Cobrança",
-  "porque": "Dúvida de cobrança com regra escrita.",
+  "porque": "Dúvida de pagamento com regra escrita.",
   "resumo": [
    "Microsoft Surface. R$ 6.999,00",
    "40 dias desde a compra · Entregue",
@@ -1659,7 +1659,7 @@ window.TICKETS = [
   "msg": "A GoPro é à prova d'água sem caixa estanque? Até quantos metros?",
   "regra": "R4 Informação",
   "processo": "PR-22 Dúvida de produto",
-  "porque": "Dúvida de produto. Responde com a ficha e as regras escritas.",
+  "porque": "Dúvida de produto antes da compra. Responde com a ficha e as regras escritas.",
   "resumo": [
    "GoPro Hero. R$ 2.599,00",
    "Pré-venda",
@@ -1684,7 +1684,7 @@ window.TICKETS = [
   "msg": "Os AirPods funcionam no meu Samsung? Funciona tudo, até o cancelamento de ruído e a troca automática entre aparelhos?",
   "regra": "R4 Informação",
   "processo": "PR-22 Dúvida de produto",
-  "porque": "Dúvida de produto. Responde com a ficha e as regras escritas.",
+  "porque": "Dúvida de produto antes da compra. Responde com a ficha e as regras escritas.",
   "resumo": [
    "Apple AirPods. R$ 1.899,00",
    "Pré-venda",
@@ -1709,7 +1709,7 @@ window.TICKETS = [
   "msg": "Quero comprar um celular pra minha mãe de 70 anos, até R$ 1.500. Qual vocês recomendam?",
   "regra": "R4 Informação",
   "processo": "PR-22 Dúvida de produto",
-  "porque": "Dúvida de produto. Responde com a ficha e as regras escritas.",
+  "porque": "Dúvida de produto antes da compra. Responde com a ficha e as regras escritas.",
   "resumo": [
    "Sem produto identificado",
    "Pré-venda",
@@ -1734,7 +1734,7 @@ window.TICKETS = [
   "msg": "Qual a garantia dessa TV? É da loja ou do fabricante? Se der problema, eu levo onde?",
   "regra": "R4 Informação",
   "processo": "PR-22 Dúvida de produto",
-  "porque": "Dúvida de produto. Responde com a ficha e as regras escritas.",
+  "porque": "Dúvida de produto antes da compra. Responde com a ficha e as regras escritas.",
   "resumo": [
    "LG Smart TV. R$ 2.799,00",
    "Pré-venda",
@@ -1759,7 +1759,7 @@ window.TICKETS = [
   "msg": "Se eu comprar hoje, chega até sexta? É pra minha lua de mel, embarco no sábado cedo. Não pode atrasar de jeito nenhum.",
   "regra": "R4 Informação",
   "processo": "PR-22 Dúvida de produto",
-  "porque": "Dúvida de produto. Responde com a ficha e as regras escritas.",
+  "porque": "Dúvida de produto antes da compra. Responde com a ficha e as regras escritas.",
   "resumo": [
    "GoPro Hero. R$ 2.599,00",
    "Pré-venda",
@@ -1784,7 +1784,7 @@ window.TICKETS = [
   "msg": "Vai baixar na Black Friday? Se baixar eu espero.",
   "regra": "R4 Informação",
   "processo": "PR-22 Dúvida de produto",
-  "porque": "Dúvida de produto. Responde com a ficha e as regras escritas.",
+  "porque": "Dúvida de produto antes da compra. Responde com a ficha e as regras escritas.",
   "resumo": [
    "Xbox. R$ 3.999,00",
    "Pré-venda",
@@ -1835,7 +1835,7 @@ window.TICKETS = [
   "msg": "Dá pra aumentar a memória RAM desse notebook depois? Ou ela é soldada?",
   "regra": "R4 Informação",
   "processo": "PR-22 Dúvida de produto",
-  "porque": "Dúvida de produto. Responde com a ficha e as regras escritas.",
+  "porque": "Dúvida de produto antes da compra. Responde com a ficha e as regras escritas.",
   "resumo": [
    "Dell XPS. R$ 8.999,00",
    "Pré-venda",
@@ -1964,7 +1964,7 @@ window.TICKETS = [
   "msg": "Esse Dyson é importado, né? É 110 ou 220? Minha casa é 220. Se for 110 eu uso um adaptador de tomada e tudo bem, né?",
   "regra": "R4 Informação",
   "processo": "PR-22 Dúvida de produto",
-  "porque": "Dúvida de produto. Responde com a ficha e as regras escritas.",
+  "porque": "Dúvida de produto antes da compra. Responde com a ficha e as regras escritas.",
   "resumo": [
    "Dyson Vacuum Cleaner. R$ 3.999,00",
    "Pré-venda",
@@ -1989,7 +1989,7 @@ window.TICKETS = [
   "msg": "Se eu não me adaptar com o Kindle eu posso trocar? A troca é grátis? Quantos dias eu tenho?",
   "regra": "R4 Informação",
   "processo": "PR-22 Dúvida de produto",
-  "porque": "Dúvida de produto. Responde com a ficha e as regras escritas.",
+  "porque": "Dúvida de produto antes da compra. Responde com a ficha e as regras escritas.",
   "resumo": [
    "Amazon Kindle. R$ 549,00",
    "Pré-venda",
@@ -2014,7 +2014,7 @@ window.TICKETS = [
   "msg": "Esse PlayStation é original mesmo? Tá bem mais barato que nas outras lojas.",
   "regra": "R4 Informação",
   "processo": "PR-22 Dúvida de produto",
-  "porque": "Dúvida de produto. Responde com a ficha e as regras escritas.",
+  "porque": "Dúvida de produto antes da compra. Responde com a ficha e as regras escritas.",
   "resumo": [
    "Sony PlayStation. R$ 3.499,00",
    "Pré-venda",
@@ -2038,8 +2038,8 @@ window.TICKETS = [
   "contatos": "Primeiro",
   "msg": "Só passando pra dizer que amei a Alexa. Chegou antes do prazo. Parabéns pro time!",
   "regra": "R4 Informação",
-  "processo": "PR-22 Dúvida de produto",
-  "porque": "Dúvida de produto. Responde com a ficha e as regras escritas.",
+  "processo": "Sem processo",
+  "porque": "Elogio. Agradece.",
   "resumo": [
    "Amazon Echo. R$ 499,00",
    "20 dias desde a compra · Entregue",

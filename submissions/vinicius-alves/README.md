@@ -3,7 +3,6 @@
 ## Sobre mim
 
 - **Nome:** Paulo Vinicius Vieira Alves
-- **LinkedIn:** a preencher
 - **Challenge escolhido:** 002 · Redesign de Suporte
 
 ---

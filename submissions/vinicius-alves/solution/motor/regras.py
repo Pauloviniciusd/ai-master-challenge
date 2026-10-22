@@ -8,6 +8,7 @@ A ordem importa. Segurança, irritação e urgência vêm antes de tudo. Depois 
 casos que precisam de pessoa. Só no fim, se nenhuma regra mandou pra pessoa,
 a IA procura um processo da base que cubra o caso. Sem processo, vai pra pessoa.
 """
+import re
 from dataclasses import dataclass
 
 from sinais import normaliza
@@ -94,10 +95,20 @@ def decide(t, s):
 
 
 def _processo(t, s, tipo, dias, status):
+    """Só devolve A ou B quando reconhece, de forma positiva, um processo escrito
+    que cobre o caso. O tipo do ticket sozinho não é processo. Na dúvida, pessoa.
+
+    Versão 2. Na versão 1, cada tipo tinha um padrão "responde sozinha", e foi
+    por esse buraco que passaram os erros perigosos do teste com tickets novos
+    (process-log/erros-da-ia.md, E10)."""
     tem = s.__contains__
     st = normaliza(status)
+    msg = normaliza(t["mensagem_do_cliente"])
+    pergunta = "?" in t["mensagem_do_cliente"]
 
     if tipo == "Cancellation request":
+        if "assinatura" in st:
+            return Decisao("B", "R3 Regra objetiva", "PR-10 Assinatura digital", "Cancela a renovação da assinatura.")
         if "nao enviado" in st:
             return Decisao("B", "R3 Regra objetiva", "PR-08 Pedido não enviado", "O pedido ainda não saiu. Cancela direto.")
         if "enviado" in st:
@@ -116,21 +127,30 @@ def _processo(t, s, tipo, dias, status):
             return Decisao("B", "R3 Regra objetiva", "PR-01 Arrependimento", f"{dias} dias desde o recebimento. Dentro dos 7 dias, sem precisar justificar.")
         if dias is not None and dias > 7 and "entregue" in st and not tem("defeito"):
             return Decisao("A", "R4 Informação", "PR-02 Fora dos 7 dias", "Passou do prazo e não tem defeito. Explica e passa pra equipe se insistir.")
+        if "devolvido" in st and re.search(r"(quanto tempo|quando).{0,40}(estorno|reembolso|dinheiro)", msg):
+            return Decisao("A", "R4 Informação", "PR-05 Estorno no cartão", "Dúvida sobre o prazo do estorno. Explica a regra geral, sem dar data.")
 
     if tipo == "Technical issue":
         if tem("defeito") and dias is not None and dias <= 7:
             return Decisao("B", "R3 Regra objetiva", "PR-03 Produto com defeito", "Defeito em até 7 dias. Abre a troca ou a devolução.")
-        if "garantia" in normaliza(t["mensagem_do_cliente"]):
+        if "garantia" in msg:
             return Decisao("A", "R4 Informação", "PR-23 Garantia", "Explica a garantia legal e a do fabricante.")
-        return Decisao("A", "R4 Informação", "PR-22 Dúvida de produto", "Dúvida de uso. Responde só com o que está na ficha.")
+        if re.search(r"como (eu )?(faco|configur|conect|instal|uso|ligo|pareio)|\b(versao|firmware|atualizacao)\b", msg):
+            return Decisao("A", "R4 Informação", "PR-22 Dúvida de produto", "Dúvida de uso. Responde só com o que está na ficha, e diz quando não sabe.")
 
     if tipo == "Billing inquiry":
         if tem("duplicada"):
             return Decisao("B", "R3 Regra objetiva", "PR-12 Cobrança duplicada", "Cobrança repetida com comprovante. Abre o estorno.")
-        return Decisao("A", "R4 Informação", "PR-13 a PR-16 Cobrança", "Dúvida de cobrança com regra escrita.")
+        if re.search(r"nota fiscal", msg) and not re.search(r"cnpj|corrig|errad", msg):
+            return Decisao("A", "R4 Informação", "PR-14 Nota fiscal", "Mostra onde baixar a nota.")
+        if re.search(r"\b(boleto|pix|cashback|parcel|trocar o cartao)", msg):
+            return Decisao("A", "R4 Informação", "PR-13 a PR-16 Cobrança", "Dúvida de pagamento com regra escrita.")
 
     if tipo == "Product inquiry":
-        return Decisao("A", "R4 Informação", "PR-22 Dúvida de produto", "Dúvida de produto. Responde com a ficha e as regras escritas.")
+        if pergunta:
+            return Decisao("A", "R4 Informação", "PR-22 Dúvida de produto", "Dúvida de produto antes da compra. Responde com a ficha e as regras escritas.")
+        if re.search(r"\b(amei|adorei|parabens|obrigad)", msg):
+            return Decisao("A", "R4 Informação", "", "Elogio. Agradece.")
 
     # Nenhum processo cobre: princípio da política, vai pra pessoa.
     return Decisao("C", "Sem processo", "", "Nenhum processo da base cobre o caso. Vai pra pessoa.")

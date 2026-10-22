@@ -25,3 +25,9 @@ Usei o Claude Code (Opus 5.5) do começo ao fim. Abaixo, cada erro dele que mudo
 ## O que aprendi com isso
 
 O erro mais caro do projeto (E8) não apareceria se eu tivesse parado no 80 de 80. O teste que importa é o que a IA não viu. E os erros que eu peguei olhando (E1, E4, E5) a IA não pegaria sozinha, porque fazem sentido no texto e só ficam errados quando alguém olha com o contexto do usuário.
+
+## Depois do teste: E10
+
+| # | O erro | Quem percebeu | Como foi corrigido |
+|---|---|---|---|
+| E10 | O motor desobedecia o próprio princípio da política. Quando nenhuma regra disparava, ele respondia sozinho só por causa do tipo do ticket. Foi por esse buraco que passaram o carregador derretendo e a compra não reconhecida | Eu, perguntando se precisava mesmo baixar um modelo | Versão 2 do decisor: só responde sozinho quando reconhece um processo escrito. Na dúvida, pessoa. Nos 30 tickets novos, agora já vistos e portanto **sem valer como teste cego**: 21 de 30 e 1 erro perigoso, contra 16 e 7 no teste cego oficial |
