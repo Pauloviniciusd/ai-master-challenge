@@ -54,6 +54,8 @@ Quase todas as entregas deste desafio automatizaram a triagem: ler o ticket e ma
 
 O protótipo tem duas partes. O [motor](solution/motor/) lê, decide e redige. A [tela](solution/interface/) tem Fila, Conversas e Painel, com o rascunho da IA e a trava funcionando na caixa de resposta.
 
+**Tela no ar, sem instalar nada: [pauloviniciusd.github.io/ai-master-challenge](https://pauloviniciusd.github.io/ai-master-challenge/)**. Escreva "seu reembolso cai até sexta" numa conversa pra ver a trava barrar.
+
 ![Conversas](process-log/screenshots/02-conversas.png)
 
 ### Recomendações
@@ -73,6 +75,8 @@ O protótipo tem duas partes. O [motor](solution/motor/) lê, decide e redige. A
 ---
 
 ## Como rodar
+
+Pra só ver a tela, abra [pauloviniciusd.github.io/ai-master-challenge](https://pauloviniciusd.github.io/ai-master-challenge/).
 
 Precisa só de Python 3.9 ou mais novo. **O motor, a tela, a trava e a conta não usam nenhuma biblioteca nem chave de API.**
 
