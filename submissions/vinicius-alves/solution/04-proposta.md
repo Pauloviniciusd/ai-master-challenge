@@ -81,12 +81,22 @@ Por isso ele não está dentro do protótipo de atendimento ao cliente. Num serv
 | Teste | Resultado |
 |---|---|
 | **80 tickets usados pra escrever as regras** | 80 de 80 iguais ao gabarito. **Não prova nada:** as regras foram escritas olhando esses casos |
-| **30 tickets novos, escritos depois e com outras palavras** | **16 de 30. 7 erros perigosos** (a IA ficou com algo que era de pessoa) |
+| **Versão 1 nos 30 tickets novos** (teste cego, escritos depois e com outras palavras) | **16 de 30. 7 erros perigosos** (a IA ficou com algo que era de pessoa) |
+| **Versão 2 nos mesmos 30** (já não é cego) | **21 de 30. 1 erro perigoso** |
 | **Trava, com 24 frases** (15 proibidas, 9 permitidas) | 24 de 24 |
 
-Os 7 erros perigosos têm a mesma causa: **o leitor só conhece as palavras que eu coloquei.** "Bateria estufada" ele pega, "o carregador derreteu" não. "Não comprei nada" ele pega, "não fui eu que fiz" não. Os dois mais graves são o carregador derretendo e a compra que o cliente não fez, e os dois iam receber resposta automática.
+**Por que a versão 1 quebrou.** Duas coisas somadas:
+- **O leitor só conhece as palavras que eu coloquei.** "Bateria estufada" ele pega, "o carregador derreteu" não. "Não comprei nada" ele pega, "não fui eu que fiz" não.
+- **O decisor desobedecia o princípio da política.** Quando nenhum sinal aparecia, ele respondia sozinho só por causa do tipo do ticket. Ter o tipo "problema técnico" não é ter um processo que cobre o caso.
 
-**As regras e a trava aguentaram. Quem quebrou foi a leitura do texto.**
+Os dois erros mais graves foram o carregador derretendo e a compra que o cliente não fez. Os dois iam receber resposta automática.
+
+**A versão 2 aplica o princípio:** a IA só responde ou resolve sozinha quando reconhece um processo escrito. Na dúvida, pessoa. Nada de palavra nova foi adicionada ao leitor. O resultado nos mesmos 30:
+- **O erro perigoso que sobrou (N04):** "minha mãe está internada e preciso do dinheiro". O leitor não reconhece o momento difícil, e como a compra passou dos 7 dias, o processo de "fora do prazo" responde sozinho.
+- **O carregador derretendo e a compra não reconhecida agora vão pra pessoa.** Mas vão como "resumo pronto", e não como "pessoa agora". Chegam ao atendente, só que sem a prioridade que mereciam.
+- **Dois casos que a IA podia resolver foram pra pessoa** (notebook com defeito, cobrança duplicada). É o custo de jogar a dúvida pra pessoa.
+
+**Leitura:** o princípio da política segura o risco mesmo com um leitor fraco. Mas **prioridade e momento difícil dependem de entender o texto**, e é aí que a palavra-chave não chega.
 
 ---
 
@@ -111,7 +121,7 @@ O modelo nunca decide e nunca promete. Se ele ler errado, o pior caso é mandar 
 
 ## Limitações
 
-- **O leitor atual não está pronto pra produção.** 7 erros perigosos em 30 é o número que manda.
+- **O leitor atual não está pronto pra produção.** No teste cego foram 7 erros perigosos em 30. Com o princípio aplicado, 1 em 30, mas medido em tickets já vistos, e com urgência perdida em 2 casos.
 - **A política e os processos são de uma loja fictícia.** Os artigos do CDC são reais, mas os pontos marcados [Validar] precisam do jurídico.
 - **O tempo de espera na tela é simulado**, porque o Dataset 1 não tem data de abertura.
 - **A conta de economia é fórmula com premissas**, não medição.

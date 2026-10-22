@@ -46,7 +46,8 @@ O motor é Python puro, sem chave de API ([`solution/motor/`](../solution/motor/
 | Teste | Resultado |
 |---|---|
 | 80 tickets usados pra escrever as regras | 80 de 80 |
-| 30 tickets novos, com outras palavras | **16 de 30, 7 erros perigosos** |
+| 30 tickets novos, com outras palavras (teste cego) | **16 de 30, 7 erros perigosos** |
+| Os mesmos 30, depois de aplicar "na dúvida, pessoa" | **21 de 30, 1 erro perigoso** (já não é cego) |
 | Trava, 24 frases | 24 de 24 |
 
 O 80 de 80 não prova nada, e a IA avisou antes de eu me empolgar. Os 30 novos mostraram a verdade: **as regras e a trava aguentam, e a leitura do texto por palavra-chave não.** Isso mudou a proposta final. Um modelo lê o texto, as regras decidem e a trava confere ([proposta](../solution/04-proposta.md)).

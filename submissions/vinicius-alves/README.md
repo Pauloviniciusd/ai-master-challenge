@@ -9,7 +9,7 @@
 
 ## Executive Summary
 
-Quase todas as entregas deste desafio automatizaram a triagem: ler o ticket e mandar pra fila certa. Eu fui no risco que ninguém mediu, **a resposta ao cliente**, onde a IA promete o que não pode e o cliente chega no atendente já irritado. Construí um sistema em que **a IA lê, regras escritas decidem e uma trava confere tudo que sai**: ela nunca determina nada que comprometa a empresa. O diagnóstico mostra que o registro operacional não mede tempo nem satisfação, então a economia vira fórmula com premissas na mesa: **de 1,1 a 2,9 pessoas por ano**. O resultado mais importante veio do teste com tickets que o sistema nunca viu: **as regras e a trava aguentaram, a leitura do texto por palavra-chave não (16 de 30, 7 erros perigosos)**. Daí a recomendação: um modelo lê o texto, as regras decidem, e nada vai pro ar antes do modo sombra.
+Quase todas as entregas deste desafio automatizaram a triagem: ler o ticket e mandar pra fila certa. Eu fui no risco que ninguém mediu, **a resposta ao cliente**, onde a IA promete o que não pode e o cliente chega no atendente já irritado. Construí um sistema em que **a IA lê, regras escritas decidem e uma trava confere tudo que sai**: ela nunca determina nada que comprometa a empresa. O diagnóstico mostra que o registro operacional não mede tempo nem satisfação, então a economia vira fórmula com premissas na mesa: **de 1,1 a 2,9 pessoas por ano**. O resultado mais importante veio do teste com tickets que o sistema nunca viu: **16 de 30, com 7 erros perigosos.** A causa foi o motor desobedecer o próprio princípio da política: na dúvida, ele respondia em vez de passar pra pessoa. Corrigido isso, os mesmos 30 deram **21 de 30 e 1 erro perigoso** (número que já não é cego). Daí a recomendação: na dúvida, pessoa. Um modelo lê o texto, as regras decidem, e nada vai pro ar antes do modo sombra.
 
 ---
 
@@ -48,7 +48,8 @@ Quase todas as entregas deste desafio automatizaram a triagem: ler o ticket e ma
 | **Economia** | 1.932 a 5.094 horas por ano (R$ 48 mil a R$ 229 mil), com cada premissa declarada |
 | **Divisão do trabalho** | Nos 110 tickets de teste: a IA resolve 48%, prepara o resumo de 33%, e 16% vão pra pessoa na hora |
 | **Motor nos 80 tickets que escreveram as regras** | 80 de 80. Não prova nada |
-| **Motor nos 30 tickets novos** | **16 de 30, 7 erros perigosos.** Quebra na leitura do texto, não nas regras |
+| **Motor v1 nos 30 tickets novos (teste cego)** | **16 de 30, 7 erros perigosos.** Na dúvida, ele respondia sozinho |
+| **Motor v2 nos mesmos 30 (já não é cego)** | **21 de 30, 1 erro perigoso.** Agora, na dúvida, vai pra pessoa |
 | **Trava** | 24 de 24 frases certas |
 
 O protótipo tem duas partes. O [motor](solution/motor/) lê, decide e redige. A [tela](solution/interface/) tem Fila, Conversas e Painel, com o rascunho da IA e a trava funcionando na caixa de resposta.
@@ -64,7 +65,7 @@ O protótipo tem duas partes. O [motor](solution/motor/) lê, decide e redige. A
 
 ### Limitações
 
-- O leitor atual não está pronto pra produção (7 erros perigosos em 30).
+- O leitor atual não está pronto pra produção. Mesmo na versão 2, ele ainda deixa passar 1 erro perigoso em 30 e manda pra pessoa casos que a IA podia resolver. E o 21 de 30 foi medido em tickets que eu já tinha visto.
 - A política e os processos são de uma loja fictícia. Os pontos marcados [Validar] precisam do jurídico.
 - Os 110 tickets fui eu que escrevi com a IA, porque o texto do Dataset 1 é falso. Todos usam só tipos, assuntos, produtos e canais que existem nele, e o script confere.
 - O tempo de espera na tela é simulado e o envio também.
@@ -120,10 +121,10 @@ Cada etapa tem um documento próprio, com uma tabela **"Quem fez o quê"** no fi
 
 ### Onde a IA errou e como corrigi
 
-Nove erros dela e três meus, cada um com quem percebeu e o que mudou: **[erros-da-ia.md](process-log/erros-da-ia.md)**. Os que mais pesaram:
+Dez erros dela e três meus, cada um com quem percebeu e o que mudou: **[erros-da-ia.md](process-log/erros-da-ia.md)**. Os que mais pesaram:
 - **Tickets fora da estrutura do Dataset 1.** Eu percebi.
 - **Primeira tela confusa pra um atendente.** Eu reprovei.
-- **O 80 de 80 que não provava nada.** A própria IA avisou, e o teste com 30 tickets novos mostrou 7 erros perigosos.
+- **O 80 de 80 que não provava nada.** A própria IA avisou, e o teste com 30 tickets novos mostrou 7 erros perigosos. A correção veio de uma pergunta minha (E10): o motor desobedecia o próprio princípio.
 
 ### O que eu adicionei que a IA sozinha não faria
 
