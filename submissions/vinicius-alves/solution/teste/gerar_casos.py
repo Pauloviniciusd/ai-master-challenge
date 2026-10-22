@@ -5,7 +5,7 @@ quebrado. Este teste escreve o texto que o dataset deveria ter: cada ticket usa
 só tipos, assuntos, produtos e canais que existem no D1. O script confere isso.
 
 Os tickets foram escritos pela IA pra serem difíceis, não fáceis.
-O gabarito (o que o atendimento certo faria) é preenchido pelo Vinicius,
+O gabarito (o que o atendimento certo faria) é preenchido pelo Paulo Vinicius,
 sem ver as armadilhas, antes de existir qualquer sistema.
 
 Saídas:

@@ -1,4 +1,4 @@
-# Submissão · Vinicius Alves · Challenge 002
+# Submissão · Paulo Vinicius Alves · Challenge 002
 
 ## Sobre mim
 

@@ -53,7 +53,7 @@ A IA completou com uma sugestão que eu aceitei: conferir cada achado nos dados 
 
 **Data:** 22/10/2026 · **Etapa:** política
 
-**O que eu decidi.** A IA não toma decisão que comprometa a empresa. Ela informa, qualifica, resume e encaminha. Ela só fecha um caso quando o critério é objetivo e está escrito. No caso ambíguo, ela monta um resumo e a pessoa decide. Exemplo: "Vinicius comprou um boné, não gostou, abriu, usou uma vez, comprou há 3 dias". Com isso o atendente chega com a resposta mastigada.
+**O que eu decidi.** A IA não toma decisão que comprometa a empresa. Ela informa, qualifica, resume e encaminha. Ela só fecha um caso quando o critério é objetivo e está escrito. No caso ambíguo, ela monta um resumo e a pessoa decide. Exemplo: "Paulo Vinicius comprou um boné, não gostou, abriu, usou uma vez, comprou há 3 dias". Com isso o atendente chega com a resposta mastigada.
 
 **Como virou regra.** Respondi 33 tickets do teste. A IA tirou das minhas respostas 8 regras, e eu aprovei uma por uma. Depois vieram mais 3 (D07). Estão em [`solution/05-politica.md`](../solution/05-politica.md).
 

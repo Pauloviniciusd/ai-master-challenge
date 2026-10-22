@@ -3,7 +3,7 @@
 O motor foi escrito olhando os 80 tickets de casos_teste.csv, então acertar
 eles não prova nada. Estes 30 foram escritos depois do motor pronto, com
 frases diferentes das que as regras conhecem, e o motor não foi ajustado
-olhando eles. O gabarito é do Vinicius, dado às cegas.
+olhando eles. O gabarito é do Paulo Vinicius, dado às cegas.
 
 Saídas: casos_novos.csv e armadilhas_novos.csv (abrir só depois do gabarito).
 
