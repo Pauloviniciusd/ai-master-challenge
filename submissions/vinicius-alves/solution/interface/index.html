@@ -226,7 +226,11 @@
   .legenda { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 20px; }
   .legenda div { display: flex; align-items: center; gap: 8px; }
   .legenda b { margin-left: auto; }
-  .lista-barra div { display: grid; grid-template-columns: 170px 1fr 28px; gap: 12px; align-items: center; margin-bottom: 10px; }
+  .lista-barra > div { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) 28px 30px; gap: 12px; align-items: center; padding: 9px 0; border-top: 1px solid var(--fundo); }
+  .lista-barra .motivo { display: block; }
+  .lista-barra .exemplo { display: block; color: var(--apagado); font-size: 12px; margin-top: 2px; }
+  .lista-barra .cod { color: var(--apagado); font-size: 11px; }
+  .grade .nota { margin: 12px 0 0; color: var(--apagado); font-size: 12px; }
   .lista-barra .trilho { height: 8px; background: var(--fundo); border-radius: 4px; overflow: hidden; }
   .lista-barra .trilho i { display: block; height: 100%; background: var(--texto); border-radius: 4px; }
   .lista-barra b { text-align: right; }
@@ -259,7 +263,7 @@
     .inbox.com-conversa .thread { display: flex; }
     .voltar { display: grid; }
     .bolha { max-width: 85%; }
-    .lista-barra div { grid-template-columns: 120px 1fr 24px; }
+    .lista-barra > div { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) 24px 26px; }
   }
 </style>
 </head>
@@ -335,7 +339,7 @@
     </div>
     <div class="grade">
       <div class="quadro"><h2>Quem cuida de cada ticket</h2><p class="sub">Tickets de hoje, pela decisão da IA</p><div class="barra-total" id="barra-total"></div><div class="legenda" id="legenda"></div></div>
-      <div class="quadro"><h2>Regras que mais pesaram</h2><p class="sub">Por que os tickets foram pra pessoa</p><div class="lista-barra" id="regras"></div></div>
+      <div class="quadro"><h2 id="regras-titulo">Por que os tickets foram pra uma pessoa</h2><p class="sub">A IA não decide nesses casos. Ela resume e passa pro time.</p><div class="lista-barra" id="regras"></div><p class="nota">O código no fim de cada linha é a regra da política (solution/05-politica.md).</p></div>
       <div class="quadro" style="grid-column: 1 / -1"><h2>O que a trava não deixa sair</h2><p class="sub">Frases do teste da trava (solution/motor/testar_trava.py). Escreva qualquer uma numa conversa pra ver ela barrar.</p><ul class="barradas" id="barradas"></ul></div>
     </div>
     <p class="aviso">Números dos 80 tickets do teste, decididos pelo motor.</p>
@@ -345,6 +349,17 @@
 <script src="dados.js"></script>
 <script>
 const EU = "Paulo Vinicius";
+const MOTIVOS = {
+  R1: ["Cliente irritado ou pediu uma pessoa", "Voltou várias vezes, escreveu em caixa alta"],
+  R2: ["Momento pessoal difícil", "Luto, desemprego"],
+  R5: ["Caso complexo ou com risco", "Valor estranho, saúde, golpe, dois problemas juntos"],
+  R6: ["Depende de abrir uma exceção", "Desconto, cobrir preço, devolver diferença"],
+  R7: ["Ameaçou ou pediu confirmação por escrito", "Reclame Aqui, chargeback"],
+  R9: ["Risco físico", "Bateria estufada, cheiro de queimado"],
+  R10: ["Urgente e sem processo escrito", "Compra não reconhecida no cartão"],
+  R11: ["Precisa apurar o que aconteceu", "Produto chegou trocado"],
+  "": ["Nenhum processo cobre o caso", ""],
+};
 const TICKETS = window.TICKETS;
 const ACOES = {
   D: { nome: "Pessoa agora", classe: "d", ordem: 0 },
@@ -696,11 +711,16 @@ function painel() {
   const n = g => TICKETS.filter(t => g.includes(t.acao)).length;
   el("barra-total").innerHTML = grupos.map(([g]) => `<i style="flex:${n(g)};background:${cores[g]}"></i>`).join("");
   el("legenda").innerHTML = grupos.map(([g, nome]) => `<div><span class="ponto" style="background:${cores[g]}"></span>${nome}<b class="num">${n(g)}</b></div>`).join("");
+  // Só os que foram pra uma pessoa (C e D), agrupados pelo número da regra e escritos pra quem não conhece a política.
+  const pessoa = TICKETS.filter(t => "CD".includes(t.acao));
   const regras = {};
-  TICKETS.filter(t => "DCE".includes(t.acao)).forEach(t => (regras[t.regra] = (regras[t.regra] || 0) + 1));
+  pessoa.forEach(t => { const cod = /^R\d+/.test(t.regra) ? t.regra.split(" ")[0] : ""; regras[cod] = (regras[cod] || 0) + 1; });
   const max = Math.max(...Object.values(regras));
-  el("regras").innerHTML = Object.entries(regras).sort((a, b) => b[1] - a[1])
-    .map(([r, q]) => `<div><span>${esc(r)}</span><span class="trilho"><i style="width:${(q / max) * 100}%"></i></span><b class="num">${q}</b></div>`).join("");
+  el("regras-titulo").textContent = `Por que ${pessoa.length} tickets foram pra uma pessoa`;
+  el("regras").innerHTML = Object.entries(regras).sort((a, b) => b[1] - a[1] || !a[0] - !b[0]).map(([cod, q]) => {
+    const [motivo, exemplo] = MOTIVOS[cod] || MOTIVOS[""];
+    return `<div><span><span class="motivo">${esc(motivo)}</span>${exemplo ? `<span class="exemplo">${esc(exemplo)}</span>` : ""}</span><span class="trilho"><i style="width:${(q / max) * 100}%"></i></span><b class="num">${q}</b><span class="cod">${cod}</span></div>`;
+  }).join("");
   el("barradas").innerHTML = (window.TRAVA_EXEMPLOS || []).map(x => `<li><s>${esc(x.frase)}</s><span>${esc(x.motivo)}</span></li>`).join("");
 }
 
